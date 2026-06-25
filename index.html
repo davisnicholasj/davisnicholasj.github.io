@@ -534,7 +534,7 @@
               <span class="pf-tag">Vibe Coded</span>
             </div>
             <h2 class="pf-card-title">Allergen Detection App</h2>
-            <p class="pf-card-subtitle">Scan ingredients. Get an instant buy / skip / review verdict — tailored to your allergen profile.</p>
+            <p class="pf-card-subtitle">Scan ingredients. Get a Buy, Review, Do Not Buy, or Retake verdict — tailored to your allergen profile.</p>
           </div>
           <div class="pf-toggle-group" role="group" aria-label="Switch between PM and Technical view">
             <button class="pf-toggle-btn active" onclick="setView('allergen','pm',this)">PM</button>
@@ -546,7 +546,7 @@
 
         <div class="pf-card-body" id="allergen-pm">
           <p>Food allergies create genuine anxiety at the grocery shelf — a single missed ingredient can cause a serious reaction. Most apps require manual ingredient searches; this app flips the experience so the label does the work.</p>
-          <p>Users log their allergens once, then scan any ingredient list to get a clear three-state recommendation: Buy, Don't Buy, or Review Further — accounting for cross-contamination warnings and "may contain" language.</p>
+          <p>Users log their allergens once, then scan any ingredient list to get a clear verdict: <strong>Buy</strong>, <strong>Review</strong>, <strong>Do Not Buy</strong>, or <strong>Retake Photo</strong>. The Review state handles cross-contamination advisories separately from direct ingredient hits — surfacing the exact label wording so the user can make an informed call rather than getting a false all-clear.</p>
           <div class="pf-highlights">
             <div class="pf-highlight">
               <div class="pf-highlight-label">Problem</div>
@@ -554,7 +554,7 @@
             </div>
             <div class="pf-highlight">
               <div class="pf-highlight-label">Key decision</div>
-              <div class="pf-highlight-value">3-state verdict reduces cognitive load at point of purchase</div>
+              <div class="pf-highlight-value">4-state verdict handles real-world label ambiguity</div>
             </div>
             <div class="pf-highlight">
               <div class="pf-highlight-label">User flow</div>
@@ -564,14 +564,15 @@
         </div>
 
         <div class="pf-card-body hidden" id="allergen-tech">
-          <p>Built end-to-end using a vision model to OCR ingredient lists from camera input, followed by an LLM prompt chain that cross-references extracted ingredients against the user's stored allergen profile.</p>
-          <p>The three-state classifier handles edge cases including "may contain" traces, shared production lines, and aliased ingredient names (e.g. casein → dairy). User allergen profiles are stored locally to avoid PII exposure.</p>
+          <p>The image is sent to a Supabase Edge Function, which calls the Google Gemini API for multimodal image analysis. Gemini handles both OCR and allergen assessment in a single pass, using the user's stored allergen profile as context — no separate ingredient database or rules engine required.</p>
+          <p>The four-state classifier (Buy / Review / Do Not Buy / Retake Photo) distinguishes between direct ingredient hits, cross-contamination advisories, and unreadable images. The app also resolves allergen aliases automatically — casein to dairy, semolina to gluten — so users don't need to know every ingredient name variant.</p>
           <div class="pf-stack">
-            <span class="pf-stack-item">Vision / OCR</span>
-            <span class="pf-stack-item">LLM prompt chain</span>
-            <span class="pf-stack-item">User profile store</span>
-            <span class="pf-stack-item">3-state classifier</span>
-            <span class="pf-stack-item">Mobile-first UI</span>
+            <span class="pf-stack-item">TypeScript</span>
+            <span class="pf-stack-item">React Native / Expo</span>
+            <span class="pf-stack-item">Supabase</span>
+            <span class="pf-stack-item">Google Gemini</span>
+            <span class="pf-stack-item">Supabase Edge Functions</span>
+            <span class="pf-stack-item">Docker</span>
           </div>
         </div>
 
